@@ -1,6 +1,7 @@
 import discord
 import asyncio
 import os
+import json
 
 TOKEN = os.getenv("TOKEN")
 
@@ -18,10 +19,19 @@ async def on_message(message):
     # ignore your own bot
     if message.author == client.user:
         return
-
-    # simple test command
+        
+    # command to change time delay of counting
+    if message.author.id == 647946543411757059 and message.content.startswith("!delay "):
+        parts = message.content.split(" ", 1)
+        value = int(parts[1])
+        with open("count_time_delay.json", "w") as file:
+            json.dump(value, f)
+            
+    # code to count with Baby Mario
     if message.author.id == 1038524403216027658:
-        await asyncio.sleep(2)
+        with open("count_time_delay.json", "r") as file:
+            time = json.load(file)
+        await asyncio.sleep(time)
         num = int(message.content)
         num += 1
         num = str(num)
