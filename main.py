@@ -25,10 +25,10 @@ async def on_message(message):
         parts = message.content.split(" ", 1)
         value = int(parts[1])
         with open("count_time_delay.json", "w") as file:
-            json.dump(value, f)
+            json.dump(value, file)
             
     # code to count with Baby Mario
-    if message.author.id == 1038524403216027658:
+    elif message.author.id == 1038524403216027658 and message.channel.id == 1496153092000059392:
         with open("count_time_delay.json", "r") as file:
             time = json.load(file)
         await asyncio.sleep(time)
